@@ -10,6 +10,10 @@ class CoursesController < ApplicationController
     # @course = Course.where({:id => the_id }).at(0)
     @course = Course.find(the_id)
 
+    # Get enrollments and students for this course
+    @enrollments = @course.enrollments.includes(:student)
+    @enrolled_students = @enrollments.map(&:student)
+
     render({ :template => "courses/show" })
   end
 
